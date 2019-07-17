@@ -56,7 +56,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let request = VNCoreMLRequest(model: imageModel) { (request, error) in
             guard let results = request.results as? [VNClassificationObservation] else { fatalError("Could not generate results from the ml model")
             }
-            print(results)
+            if let firstResult = results.first {
+//                if firstResult.identifier.contains("hot dog") {
+//                    self.navigationItem.title = "Hotdog!"
+//                } else {
+//                    self.navigationItem.title = "Not Hotdog!!!"
+//                }
+                self.navigationItem.title = firstResult.identifier
+            }
+
         }
         
         let handler = VNImageRequestHandler(ciImage: image)
